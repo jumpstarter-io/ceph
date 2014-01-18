@@ -6267,8 +6267,35 @@ bool MDCache::trim_dentry(CDentry *dn, map<int, MCacheExpire*>& expiremap)
     assert(dn->is_auth());
   }
 
+  // adjust the dir state
+  // NOTE: we can safely remove a clean, null dentry without effecting
+  //       directory completeness.
+  // (check this _before_ we unlink the inode, below!)
+  bool null_dentry = false;
+  bool clear_complete = false;
+  if (!(dnl->is_null() && dn->is_clean()))
+    clear_complete = true;
+
+  // unlink the dentry
+  if (dnl->is_remote()) {
+    // just unlink.
+    dir->unlink_inode(dn);
+  } else if (dnl->is_primary()) {
+    // expire the inode, too.
+    CInode *in = dnl->get_inode();
+    assert(in);
+    if (trim_inode(dn, in, con, expiremap))
+      return true; // purging stray instead of trimming
+  } else {
+    assert(dnl->is_null());
+    null_dentry = true;
+  }
+
   // notify dentry authority?
   if (!dn->is_auth()) {
+    if (null_dentry && !dn->lock.can_read(-1))
+      return true;
+
     pair<int,int> auth = dn->authority();
     
     for (int p=0; p<2; p++) {
@@ -6287,32 +6314,6 @@ bool MDCache::trim_dentry(CDentry *dn, map<int, MCacheExpire*>& expiremap)
     }
   }
 
-  // adjust the dir state
-  // NOTE: we can safely remove a clean, null dentry without effecting
-  //       directory completeness.
-  // (check this _before_ we unlink the inode, below!)
-  bool clear_complete = false;
-  if (!(dnl->is_null() && dn->is_clean())) 
-    clear_complete = true;
-  
-  // unlink the dentry
-  if (dnl->is_remote()) {
-    // just unlink.
-    dir->unlink_inode(dn);
-  } 
-  else if (dnl->is_primary()) {
-    // expire the inode, too.
-    CInode *in = dnl->get_inode();
-    assert(in);
-    trim_inode(dn, in, con, expiremap);
-    // purging stray instead of trimming ?
-    if (dn->get_num_ref() > 0)
-      return true;
-  } 
-  else {
-    assert(dnl->is_null());
-  }
-    
   // remove dentry
   if (dir->is_auth())
     dir->add_to_bloom(dn);
@@ -6375,18 +6376,21 @@ void MDCache::trim_dirfrag(CDir *dir, CDir *con, map<int, MCacheExpire*>& expire
   in->close_dirfrag(dir->dirfrag().frag);
 }
 
-void MDCache::trim_inode(CDentry *dn, CInode *in, CDir *con, map<int, MCacheExpire*>& expiremap)
+bool MDCache::trim_inode(CDentry *dn, CInode *in, CDir *con, map<int, MCacheExpire*>& expiremap)
 {
   dout(15) << "trim_inode " << *in << dendl;
   assert(in->get_num_ref() == 0);
-    
-  // DIR
-  list<CDir*> dfls;
-  in->get_dirfrags(dfls);
-  for (list<CDir*>::iterator p = dfls.begin();
-       p != dfls.end();
-       ++p) 
-    trim_dirfrag(*p, con ? con:*p, expiremap);  // if no container (e.g. root dirfrag), use *p
+
+  if (in->is_dir()) {
+    if (!in->is_auth() && !in->dirfragtreelock.can_read(-1))
+      return true;
+
+    // DIR
+    list<CDir*> dfls;
+    in->get_dirfrags(dfls);
+    for (list<CDir*>::iterator p = dfls.begin(); p != dfls.end(); ++p)
+      trim_dirfrag(*p, con ? con:*p, expiremap);  // if no container (e.g. root dirfrag), use *p
+  }
   
   // INODE
   if (in->is_auth()) {
@@ -6394,7 +6398,7 @@ void MDCache::trim_inode(CDentry *dn, CInode *in, CDir *con, map<int, MCacheExpi
     if (dn) {
       maybe_eval_stray(in);
       if (dn->get_num_ref() > 0)
-	return;
+	return true;
     }
   } else {
     pair<int,int> auth = in->authority();
@@ -6436,6 +6440,7 @@ void MDCache::trim_inode(CDentry *dn, CInode *in, CDir *con, map<int, MCacheExpi
   if (dn)
     dn->get_dir()->unlink_inode(dn);
   remove_inode(in);
+  return false;
 }
 
 
@@ -10642,16 +10647,8 @@ void MDCache::handle_dentry_link(MDentryLink *m)
       ::decode(d_type, p);
       dir->link_remote_inode(dn, ino, d_type);
     }
-  } else if (m->get_is_primary()) {
-    CInode *in = add_replica_inode(p, NULL, finished);
-    assert(in->get_num_ref() == 0);
-    assert(in->get_parent_dn() == NULL);
-    map<int, MCacheExpire*> expiremap;
-    int from = m->get_source().num();
-    expiremap[from] = new MCacheExpire(mds->get_nodeid());
-    expiremap[from]->add_inode(m->get_subtree(), in->vino(), in->get_replica_nonce());
-    send_expire_messages(expiremap);
-    remove_inode(in);
+  } else {
+    assert(0);
   }
 
   if (!finished.empty())
@@ -11574,6 +11571,8 @@ void MDCache::handle_fragment_notify(MMDSFragmentNotify *notify)
       add_replica_dir(p, diri, notify->get_source().num(), waiters);
 
     mds->queue_waiters(waiters);
+  } else {
+    assert(0);
   }
 
   notify->put();
