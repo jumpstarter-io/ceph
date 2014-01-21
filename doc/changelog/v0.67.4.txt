@@ -89,7 +89,7 @@ commit 32f5233288c47d95b87c0a9cab5f9c2ffcf15417
 Author: Dan Mick <dan.mick@inktank.com>
 Date:   Mon Sep 30 14:58:11 2013 -0700
 
-    Invoke python with /usr/bin/env python instead of directly
+    Invoke python2 with /usr/bin/env python2 instead of directly
     
     Fixes: #6311
     Signed-off-by: Dan Mick <dan.mick@inktank.com>
@@ -115,7 +115,7 @@ Date:   Mon Sep 23 09:04:34 2013 -0700
     
     This reverts commit 67a95b9880c9bc6e858150352318d68d64ed74ad.
     
-    We now put CEPH_ARGS in the actual args we parse in python, which are passed
+    We now put CEPH_ARGS in the actual args we parse in python2, which are passed
     to rados piecemeal later.  This lets you put things like --id ... in there
     that need to be parsed before librados is initialized.
     (cherry picked from commit 97f462be4829f0167ed3d65e6694dfc16f1f3243)

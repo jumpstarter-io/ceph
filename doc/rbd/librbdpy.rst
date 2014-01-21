@@ -2,9 +2,9 @@
  Librbd (Python)
 ================
 
-.. highlight:: python
+.. highlight:: python2
 
-The `rbd` python module provides file-like access to RBD images.
+The `rbd` python2 module provides file-like access to RBD images.
 
 
 Example: Creating and writing to an image

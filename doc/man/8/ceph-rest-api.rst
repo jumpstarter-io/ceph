@@ -114,7 +114,7 @@ When deploying as WSGI application (say, with Apache/mod_wsgi,
 or nginx/uwsgi, or gunicorn, etc.), use the ``ceph_rest_api.py`` module
 (``ceph-rest-api`` is a thin layer around this module).  The standalone web
 server is of course not used, so address/port configuration is done in
-the WSGI server.  Use a python .wsgi module or the equivalent to call
+the WSGI server.  Use a python2 .wsgi module or the equivalent to call
 ``app = generate_app(conf, cluster, clientname, clientid, args)`` where:
 
 * conf is as -c/--conf above

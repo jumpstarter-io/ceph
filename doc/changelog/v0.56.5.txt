@@ -191,7 +191,7 @@ commit 0b42b1edb306a9763bcd02bd962bd284f6b7b3a3
 Author: Danny Al-Gaaf <danny.al-gaaf@bisect.de>
 Date:   Thu Apr 4 15:54:31 2013 +0200
 
-    Makefile.am: install ceph-* python scripts to /usr/bin directly
+    Makefile.am: install ceph-* python2 scripts to /usr/bin directly
     
     Install ceph-* scripts directly to $(prefix)$(sbindir) (which
     normaly would be /usr/sbin) instead of moving it around after
@@ -422,7 +422,7 @@ commit 02d48351f73330917185d8980f8ad123b99138b5
 Author: Sage Weil <sage@inktank.com>
 Date:   Fri Mar 22 10:09:55 2013 -0700
 
-    ceph-disk: re-add python 2.7 dependency comment
+    ceph-disk: re-add python2 2.7 dependency comment
     
     FIXME!
     

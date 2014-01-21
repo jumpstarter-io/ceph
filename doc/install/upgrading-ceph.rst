@@ -281,7 +281,7 @@ Or::
 	
 Or::
 
-	sudo yum install ceph-deploy python-pushy
+	sudo yum install ceph-deploy python2-pushy
 
 
 Monitor
@@ -447,7 +447,7 @@ cluster, we recommend upgrading ``ceph-common`` and client libraries
 #. Upgrade the package:: 
 
 	ssh {client-host}
-	apt-get update && sudo apt-get install ceph-common librados2 librbd1 python-ceph
+	apt-get update && sudo apt-get install ceph-common librados2 librbd1 python2-ceph
 
 #. Ensure that you have the latest version::
 

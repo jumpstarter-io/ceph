@@ -779,7 +779,7 @@ Date:   Fri Jul 13 09:42:20 2012 -0700
 
     qa: download tests from specified branch
     
-    These python tests aren't installed, so they need to be downloaded
+    These python2 tests aren't installed, so they need to be downloaded
     
     Signed-off-by: Josh Durgin <josh.durgin@inktank.com>
 

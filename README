@@ -74,9 +74,9 @@ Prerequisites
 -------------
 To build the documentation, you must install the following:
 
-- python-dev
-- python-pip
-- python-virtualenv
+- python2-dev
+- python2-pip
+- python2-virtualenv
 - doxygen
 - ditaa
 - libxml2-dev
@@ -86,7 +86,7 @@ To build the documentation, you must install the following:
 
 For example:
 
-	sudo apt-get install python-dev python-pip python-virtualenv doxygen ditaa libxml2-dev libxslt-dev dot graphviz
+	sudo apt-get install python2-dev python2-pip python2-virtualenv doxygen ditaa libxml2-dev libxslt-dev dot graphviz
 
 Building the Documentation
 --------------------------
@@ -130,12 +130,12 @@ To build the source code, you must install the following:
 - libleveldb-dev
 - libsnappy-dev
 - libcurl4-gnutls-dev
-- python-argparse
-- python-flask
+- python2-argparse
+- python2-flask
 
 For example:
 
-	$ apt-get install automake autoconf pkg-config gcc g++ make libboost-dev libedit-dev libssl-dev libtool libfcgi libfcgi-dev libfuse-dev linux-kernel-headers libcrypto++-dev libaio-dev libgoogle-perftools-dev libkeyutils-dev uuid-dev libatomic-ops-dev libboost-program-options-dev libboost-thread-dev libexpat1-dev libleveldb-dev libsnappy-dev libcurl4-gnutls-dev python-argparse python-flask
+	$ apt-get install automake autoconf pkg-config gcc g++ make libboost-dev libedit-dev libssl-dev libtool libfcgi libfcgi-dev libfuse-dev linux-kernel-headers libcrypto++-dev libaio-dev libgoogle-perftools-dev libkeyutils-dev uuid-dev libatomic-ops-dev libboost-program-options-dev libboost-thread-dev libexpat1-dev libleveldb-dev libsnappy-dev libcurl4-gnutls-dev python2-argparse python2-flask
 
 rpm-based
 ---------
@@ -146,8 +146,8 @@ These are the rpm packages needed to install in an rpm-based OS:
     gcc
     make
     libtool
-    python-argparse
-    python-flask
+    python2-argparse
+    python2-flask
     libuuid-devel
     nss-devel
     fuse-devel

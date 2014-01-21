@@ -115,7 +115,7 @@ class cephfs_stat(Structure):
                 ('__unused3', c_long) ]
 
 class LibCephFS(object):
-    """libcephfs python wrapper"""
+    """libcephfs python2 wrapper"""
     def require_state(self, *args):
         for a in args:
             if self.state == a:

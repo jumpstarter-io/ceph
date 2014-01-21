@@ -84,7 +84,7 @@ LIBS =
 plugin.c: $(DISSECTOR_SRC) $(top_srcdir)/tools/make-dissector-reg \
     $(top_srcdir)/tools/make-dissector-reg.py
 	@if test -n "$(PYTHON)"; then \
-		echo Making plugin.c with python ; \
+		echo Making plugin.c with python2 ; \
 		$(PYTHON) $(top_srcdir)/tools/make-dissector-reg.py $(srcdir) \
 		    plugin $(DISSECTOR_SRC) ; \
 	else \

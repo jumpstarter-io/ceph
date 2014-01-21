@@ -1,7 +1,7 @@
 # -*- mode:python -*-
 # vim: ts=4 sw=4 smarttab expandtab
 #
-# Processed in Makefile to add python #! line and version variable
+# Processed in Makefile to add python2 #! line and version variable
 #
 #
 

@@ -90,7 +90,7 @@ Install Ceph client packages
 
 On the ``glance-api`` host, you'll need the Python bindings for ``librbd``::
 
-  sudo apt-get install python-ceph
+  sudo apt-get install python2-ceph
 
 On the ``nova-volume`` or ``cinder-volume`` host, use the client command line
 tools::

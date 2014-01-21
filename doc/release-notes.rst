@@ -281,7 +281,7 @@ OpenStack and librbd hangs when caching is disabled.
 Notable changes
 ~~~~~~~~~~~~~~~
 
-* librados, librbd: fix constructor for python bindings with certain
+* librados, librbd: fix constructor for python2 bindings with certain
   usages (in particular, that used by OpenStack)
 * librados, librbd: fix aio_flush wakeup when cache is disabled
 * librados: fix locking for aio completion refcounting
@@ -504,8 +504,8 @@ Notable changes since v0.61 "Cuttlefish"
 * debian: rgw: stop daemon on uninstall
 * debian: stop daemons on uninstall; fix dependencies
 * hypertable: fixes for hypertable CephBroker bindings
-* librados python binding cleanups
-* librados python: fix xattrs > 4KB (Josh Durgin)
+* librados python2 binding cleanups
+* librados python2: fix xattrs > 4KB (Josh Durgin)
 * librados: configurable max object size (default 100 GB)
 * librados: new calls to administer the cluster
 * librbd: ability to read from local replicas
@@ -613,7 +613,7 @@ Notable changes
 * mds: fix several bugs (Yan, Zheng)
 * ceph-fuse, libcephfs: fix truncatation bug on >4MB files (Yan, Zheng)
 * ceph/librados: fix resending of commands on mon reconnect
-* librados python: fix xattrs > 4KB (Josh Durgin)
+* librados python2: fix xattrs > 4KB (Josh Durgin)
 * librados: configurable max object size (default 100 GB)
 * msgr: fix various memory leaks
 * ceph-fuse: fixed long-standing O_NOATIME vs O_LAZY bug
@@ -780,7 +780,7 @@ Notable Changes
 * osd: fix handling for split after upgrade from bobtail
 * debian, specfile: packaging cleanups
 * radosgw-admin: create keys for new users by default
-* librados python binding cleanups
+* librados python2 binding cleanups
 * misc code cleanups
 
 
@@ -955,7 +955,7 @@ Notable Changes
 * osd: fix scrub efficiency bug (problematic on old clusters)
 * rgw: fix listing objects that start with underscore
 * rgw: fix deep URI resource, CORS bugs
-* librados python binding: fix truncate on 32-bit architectures
+* librados python2 binding: fix truncate on 32-bit architectures
 * ceph-disk: fix udev rules
 * rpm: install sysvinit script on package install
 * ceph-disk: fix OSD start on machine reboot on Debian wheezy
@@ -1517,7 +1517,7 @@ Notable changes
 * librados: fix async aio completion wakeup (manifests as rbd hang)
 * librados: fix hang when osd becomes full and then not full
 * librados: fix locking for aio completion refcounting
-* librbd python bindings: fix stripe_unit, stripe_count
+* librbd python2 bindings: fix stripe_unit, stripe_count
 * librbd: make image creation default configurable
 * mon: fix validation of mds ids in mon commands
 * osd: avoid excessive disk updates during peering

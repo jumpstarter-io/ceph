@@ -1,8 +1,8 @@
 %bcond_with ocf
 
 %if ! (0%{?fedora} > 12 || 0%{?rhel} > 5)
-%{!?python_sitelib: %global python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
-%{!?python_sitearch: %global python_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
+%{!?python_sitelib: %global python2_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib())")}
+%{!?python_sitearch: %global python2_sitearch %(%{__python} -c "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))")}
 %endif
 
 #################################################################################
@@ -185,7 +185,7 @@ performance, reliability, and scalability. This is a shared library
 allowing applications to access a Ceph distributed file system via a
 POSIX-like interface.
 
-%package -n python-ceph
+%package -n python2-ceph
 Summary:	Python libraries for the Ceph distributed filesystem
 Group:		System Environment/Libraries
 License:	LGPL-2.0
@@ -197,7 +197,7 @@ Requires:	python-requests
 %if 0%{defined suse_version}
 %py_requires
 %endif
-%description -n python-ceph
+%description -n python2-ceph
 This package contains Python libraries for interacting with Cephs RADOS
 object storage.
 
@@ -578,7 +578,7 @@ fi
 /sbin/ldconfig
 
 #################################################################################
-%files -n python-ceph
+%files -n python2-ceph
 %defattr(-,root,root,-)
 %{python_sitelib}/rados.py*
 %{python_sitelib}/rbd.py*

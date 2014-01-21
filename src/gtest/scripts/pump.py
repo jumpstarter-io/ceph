@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
 # Copyright 2008, Google Inc.
 # All rights reserved.
@@ -426,9 +426,9 @@ class LiteralDollarNode:
 
 
 class ExpNode:
-  def __init__(self, token, python_exp):
+  def __init__(self, token, python2_exp):
     self.token = token
-    self.python_exp = python_exp
+    self.python_exp = python2_exp
 
 
 def PopFront(a_list):
@@ -459,8 +459,8 @@ def PeekToken(a_list):
 
 
 def ParseExpNode(token):
-  python_exp = re.sub(r'([_A-Za-z]\w*)', r'self.GetValue("\1")', token.value)
-  return ExpNode(token, python_exp)
+  python2_exp = re.sub(r'([_A-Za-z]\w*)', r'self.GetValue("\1")', token.value)
+  return ExpNode(token, python2_exp)
 
 
 def ParseElseNode(tokens):

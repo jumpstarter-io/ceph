@@ -34,7 +34,7 @@ AC_PROG_LIBTOOL
 # HAVE_PYTHON by requiring "python" to be in the PATH, and that interpreter's
 # version to be >= 2.3. This will allow the scripts to use a "/usr/bin/env"
 # hashbang.
-PYTHON=  # We *do not* allow the user to specify a python interpreter
+PYTHON=  # We *do not* allow the user to specify a python2 interpreter
 AC_PATH_PROG([PYTHON],[python],[:])
 AS_IF([test "$PYTHON" != ":"],
       [AM_PYTHON_CHECK_VERSION([$PYTHON],[2.3],[:],[PYTHON=":"])])

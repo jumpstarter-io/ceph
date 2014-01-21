@@ -560,7 +560,7 @@ Date:   Fri Jun 14 12:10:49 2013 -0700
     
      1b 5b 3f 31 30 33 34 68
     
-    Note that the same thing happens when you 'import readline' in python.
+    Note that the same thing happens when you 'import readline' in python2.
     
     Work around it!
     

@@ -29,4 +29,4 @@ sudo apt-get -y  purge radosgw-dbg
 sudo apt-get -y  purge rest-bench
 sudo apt-get -y  purge rest-bench-dbg
 sudo apt-get -y  purge obsync
-sudo apt-get -y  purge python-ceph
+sudo apt-get -y  purge python2-ceph

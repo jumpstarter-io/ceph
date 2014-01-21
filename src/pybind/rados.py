@@ -179,7 +179,7 @@ def run_in_thread(target, args, timeout=0):
     return t.retval
 
 class Rados(object):
-    """librados python wrapper"""
+    """librados python2 wrapper"""
     def require_state(self, *args):
         """ 
         Checks if the Rados object is in a special state

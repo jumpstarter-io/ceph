@@ -30,12 +30,12 @@ Some releases of Ceph require the following packages:
 - snappy
 - leveldb
 - gdisk
-- python-argparse
+- python2-argparse
 - gperftools-libs
 
 To install these packages, execute the following::  
 
-	sudo yum install snappy leveldb gdisk python-argparse gperftools-libs
+	sudo yum install snappy leveldb gdisk python2-argparse gperftools-libs
 
 
 Add Release Packages
@@ -179,7 +179,7 @@ Installing Ceph Deploy
 Once you have added either release or development packages, or added a
 ``ceph.repo`` file to ``/etc/yum.repos.d``, you can install ``ceph-deploy``. ::
 
-	sudo yum install ceph-deploy python-pushy
+	sudo yum install ceph-deploy python2-pushy
 
 
 Installing Ceph Packages

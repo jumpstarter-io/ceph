@@ -9,7 +9,7 @@ Create a Connection
 
 This creates a connection so that you can interact with the server:
 
-.. code-block:: python
+.. code-block:: python2
 
 	import cloudfiles
 	username = 'account_name:username'
@@ -27,7 +27,7 @@ Create a Container
 
 This creates a new container called ``my-new-container``:
 
-.. code-block:: python
+.. code-block:: python2
 
 	container = conn.create_container('my-new-container')
 	
@@ -37,7 +37,7 @@ Create an Object
 
 This creates a file ``hello.txt`` from the file named ``my_hello.txt``:
 
-.. code-block:: python
+.. code-block:: python2
 
 	obj = container.create_object('hello.txt')
 	obj.content_type = 'text/plain'
@@ -49,7 +49,7 @@ List Owned Containers
 
 This gets a list of containers that you own, and prints out the container name:
 
-.. code-block:: python
+.. code-block:: python2
 
 	for container in conn.get_all_containers():
 		print container.name
@@ -66,7 +66,7 @@ List a Container's Content
 This gets a list of objects in the container, and prints out each 
 object's name, the file size, and last modified date:
 
-.. code-block:: python
+.. code-block:: python2
 
 	for obj in container.get_objects():
 		print "{0}\t{1}\t{2}".format(obj.name, obj.size, obj.last_modified)
@@ -83,7 +83,7 @@ Retrieve an Object
 This downloads the object ``hello.txt`` and saves it in
 ``./my_hello.txt``:
 
-.. code-block:: python
+.. code-block:: python2
 
 	obj = container.get_object('hello.txt')
 	obj.save_to_filename('./my_hello.txt')
@@ -94,7 +94,7 @@ Delete an Object
 
 This deletes the object ``goodbye.txt``:
 
-.. code-block:: python
+.. code-block:: python2
 
 	container.delete_object('goodbye.txt')
 	
@@ -105,7 +105,7 @@ Delete a Container
 
    The container must be empty! Otherwise the request won't work!
 
-.. code-block:: python
+.. code-block:: python2
 
 	conn.delete_container(container.name)
 

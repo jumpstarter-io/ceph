@@ -248,7 +248,7 @@ class TestRunner(object):
       self.os.environ[self.build_dir_var_name] = build_dir
 
       # If this script is run on a Windows machine that has no association
-      # between the .py extension and a python interpreter, simply passing
+      # between the .py extension and a python2 interpreter, simply passing
       # the script name into subprocess.Popen/os.spawn will not work.
       print 'Running %s . . .' % (test,)
       return self._Run([sys.executable, test])
@@ -283,7 +283,7 @@ class TestRunner(object):
                     named_configurations,
                     built_configurations,
                     available_configurations=CONFIGS,
-                    python_tests_to_skip=None):
+                    python2_tests_to_skip=None):
     """Determines what tests should be run.
 
     Args:
@@ -292,7 +292,7 @@ class TestRunner(object):
       built_configurations: True if -b has been specified.
       available_configurations: a list of configurations available on the
                             current platform, injectable for testing.
-      python_tests_to_skip: a collection of (configuration, python test name)s
+      python2_tests_to_skip: a collection of (configuration, python2 test name)s
                             that need to be skipped.
 
     Returns:
@@ -340,7 +340,7 @@ class TestRunner(object):
     # tests and detecting errors.
     for argument in sets.Set(normalized_args) - build_dirs:
       if re.search(PYTHON_TEST_REGEX, argument):
-        python_path = self.os.path.join(test_dir,
+        python2_path = self.os.path.join(test_dir,
                                         self.os.path.basename(argument))
         if self.os.path.isfile(python_path):
           listed_python_tests.append(python_path)
@@ -368,16 +368,16 @@ class TestRunner(object):
                                                      PYTHON_TEST_REGEX)
 
     # TODO(vladl@google.com): skip unbuilt Python tests when -b is specified.
-    python_test_pairs = []
+    python2_test_pairs = []
     for directory in build_dirs:
       for test in selected_python_tests:
         config = _GetConfigFromBuildDir(directory)
         file_name = os.path.basename(test)
-        if python_tests_to_skip and (config, file_name) in python_tests_to_skip:
+        if python2_tests_to_skip and (config, file_name) in python2_tests_to_skip:
           print ('NOTE: %s is skipped for configuration %s, as it does not '
                  'work there.' % (file_name, config))
         else:
-          python_test_pairs.append((directory, test))
+          python2_test_pairs.append((directory, test))
 
     binary_test_pairs = []
     for directory in build_dirs:
@@ -391,11 +391,11 @@ class TestRunner(object):
 
     return (python_test_pairs, binary_test_pairs)
 
-  def RunTests(self, python_tests, binary_tests):
+  def RunTests(self, python2_tests, binary_tests):
     """Runs Python and binary tests and reports results to the standard output.
 
     Args:
-      python_tests: List of Python tests to run in the form of tuples
+      python2_tests: List of Python tests to run in the form of tuples
                     (build directory, Python test script).
       binary_tests: List of binary tests to run in the form of tuples
                     (build directory, binary file).
@@ -404,9 +404,9 @@ class TestRunner(object):
       The exit code the program should pass into sys.exit().
     """
 
-    if python_tests or binary_tests:
+    if python2_tests or binary_tests:
       results = []
-      for directory, test in python_tests:
+      for directory, test in python2_tests:
         results.append((directory,
                         test,
                         self._RunPythonTest(test, directory) == 0))

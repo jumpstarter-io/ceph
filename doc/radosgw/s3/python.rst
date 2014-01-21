@@ -8,7 +8,7 @@ Creating a Connection
 
 This creates a connection so that you can interact with the server.
 
-.. code-block:: python
+.. code-block:: python2
 
 	import boto
 	import boto.s3.connection
@@ -30,7 +30,7 @@ Listing Owned Buckets
 This gets a list of Buckets that you own.
 This also prints out the bucket name and creation date of each bucket.
 
-.. code-block:: python
+.. code-block:: python2
 
 	for bucket in conn.get_all_buckets():
 		print "{name}\t{created}".format(
@@ -50,7 +50,7 @@ Creating a Bucket
 
 This creates a new bucket called ``my-new-bucket``
 
-.. code-block:: python
+.. code-block:: python2
 
 	bucket = conn.create_bucket('my-new-bucket')
 
@@ -62,7 +62,7 @@ This gets a list of objects in the bucket.
 This also prints out each object's name, the file size, and last
 modified date.
 
-.. code-block:: python
+.. code-block:: python2
 
 	for key in bucket.list():
 		print "{name}\t{size}\t{modified}".format(
@@ -84,7 +84,7 @@ Deleting a Bucket
 
    The Bucket must be empty! Otherwise it won't work!
 
-.. code-block:: python
+.. code-block:: python2
 
 	conn.delete_bucket(bucket.name)
 
@@ -94,7 +94,7 @@ Forced Delete for Non-empty Buckets
 
 .. attention::
 
-   not available in python
+   not available in python2
 
 
 Creating an Object
@@ -102,7 +102,7 @@ Creating an Object
 
 This creates a file ``hello.txt`` with the string ``"Hello World!"``
 
-.. code-block:: python
+.. code-block:: python2
 
 	key = bucket.new_key('hello.txt')
 	key.set_contents_from_string('Hello World!')
@@ -114,7 +114,7 @@ Change an Object's ACL
 This makes the object ``hello.txt`` to be publicly readable, and
 ``secret_plans.txt`` to be private.
 
-.. code-block:: python
+.. code-block:: python2
 
 	hello_key = bucket.get_key('hello.txt')
 	hello_key.set_canned_acl('public-read')
@@ -128,7 +128,7 @@ Download an Object (to a file)
 This downloads the object ``perl_poetry.pdf`` and saves it in
 ``/home/larry/documents/``
 
-.. code-block:: python
+.. code-block:: python2
 
 	key = bucket.get_key('perl_poetry.pdf')
 	key.get_contents_to_filename('/home/larry/documents/perl_poetry.pdf')
@@ -139,7 +139,7 @@ Delete an Object
 
 This deletes the object ``goodbye.txt``
 
-.. code-block:: python
+.. code-block:: python2
 
 	bucket.delete_key('goodbye.txt')
 
@@ -154,7 +154,7 @@ will work for 1 hour. Signed download URLs will work for the time
 period even if the object is private (when the time period is up, the
 URL will stop working).
 
-.. code-block:: python
+.. code-block:: python2
 
 	hello_key = bucket.get_key('hello.txt')
 	hello_url = hello_key.generate_url(0, query_auth=False, force_http=True)

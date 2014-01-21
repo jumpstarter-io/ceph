@@ -73,7 +73,7 @@ Changes for 1.2.0:
  * Added scons/SConscript for building with SCons.
  * Added src/gtest-all.cc for building Google Test from a single file.
  * Fixed compatibility with Solaris and z/OS.
- * Enabled running Python tests on systems with python 2.3 installed,
+ * Enabled running Python tests on systems with python2 2.3 installed,
    e.g. Mac OS X 10.4.
  * Bug fixes.
 

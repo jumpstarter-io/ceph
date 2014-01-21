@@ -142,7 +142,7 @@ When deploying as WSGI application (say, with Apache/mod_wsgi,
 or nginx/uwsgi, or gunicorn, etc.), use the \fBceph_rest_api.py\fP module
 (\fBceph\-rest\-api\fP is a thin layer around this module).  The standalone web
 server is of course not used, so address/port configuration is done in
-the WSGI server.  Use a python .wsgi module or the equivalent to call
+the WSGI server.  Use a python2 .wsgi module or the equivalent to call
 \fBapp = generate_app(conf, cluster, clientname, clientid, args)\fP where:
 .INDENT 0.0
 .IP \(bu 2

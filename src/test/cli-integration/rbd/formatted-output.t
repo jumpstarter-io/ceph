@@ -42,7 +42,7 @@ For now, use a more inclusive regex.
   \torder 22 (4096 kB objects) (esc)
   [^^]+ (re)
   \tformat: 1 (esc)
-  $ rbd info foo --format json | python -mjson.tool
+  $ rbd info foo --format json | python2 -mjson.tool
   {
       "block_name_prefix": "rb.0.*",  (glob)
       "format": 1, 
@@ -71,7 +71,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   [^^]+ (re)
   \tformat: 1 (esc)
   \tprotected: False (esc)
-  $ rbd info foo@snap --format json | python -mjson.tool
+  $ rbd info foo@snap --format json | python2 -mjson.tool
   {
       "block_name_prefix": "rb.0.*",  (glob)
       "format": 1, 
@@ -100,7 +100,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   [^^]+ (re)
   \tformat: 2 (esc)
   \tfeatures: layering (esc)
-  $ rbd info bar --format json | python -mjson.tool
+  $ rbd info bar --format json | python2 -mjson.tool
   {
       "block_name_prefix": "rbd_data.*",  (glob)
       "features": [
@@ -136,7 +136,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   \tformat: 2 (esc)
   \tfeatures: layering (esc)
   \tprotected: True (esc)
-  $ rbd info bar@snap --format json | python -mjson.tool
+  $ rbd info bar@snap --format json | python2 -mjson.tool
   {
       "block_name_prefix": "rbd_data.*",  (glob)
       "features": [
@@ -174,7 +174,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   \tformat: 2 (esc)
   \tfeatures: layering (esc)
   \tprotected: False (esc)
-  $ rbd info bar@snap2 --format json | python -mjson.tool
+  $ rbd info bar@snap2 --format json | python2 -mjson.tool
   {
       "block_name_prefix": "rbd_data.*",  (glob)
       "features": [
@@ -211,7 +211,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   [^^]+ (re)
   \tformat: 2 (esc)
   \tfeatures: layering (esc)
-  $ rbd info baz --format json | python -mjson.tool
+  $ rbd info baz --format json | python2 -mjson.tool
   {
       "block_name_prefix": "rbd_data.*",  (glob)
       "features": [
@@ -245,7 +245,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   \torder 22 (4096 kB objects) (esc)
   [^^]+ (re)
   \tformat: 1 (esc)
-  $ rbd info quux --format json | python -mjson.tool
+  $ rbd info quux --format json | python2 -mjson.tool
   {
       "block_name_prefix": "rb.0.*",  (glob)
       "format": 1, 
@@ -272,7 +272,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   [^^]+ (re)
   \tformat: 2 (esc)
   \tfeatures: layering (esc)
-  $ rbd info data/child --format json | python -mjson.tool
+  $ rbd info data/child --format json | python2 -mjson.tool
   {
       "block_name_prefix": "rbd_data.*",  (glob)
       "features": [
@@ -310,7 +310,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   \tprotected: False (esc)
   \tparent: rbd/bar@snap (esc)
   \toverlap: 512 MB (esc)
-  $ rbd info data/child@snap --format json | python -mjson.tool
+  $ rbd info data/child@snap --format json | python2 -mjson.tool
   {
       "block_name_prefix": "rbd_data.*",  (glob)
       "features": [
@@ -357,7 +357,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   quux
   bar
   baz
-  $ rbd list --format json | python -mjson.tool
+  $ rbd list --format json | python2 -mjson.tool
   [
       "foo", 
       "quux", 
@@ -380,7 +380,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   bar@snap   512M          2 yes       
   bar@snap2 1024M          2           
   baz       2048M          2      shr  
-  $ rbd list -l --format json | python -mjson.tool
+  $ rbd list -l --format json | python2 -mjson.tool
   [
       {
           "format": 1, 
@@ -474,7 +474,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   </images>
   $ rbd list data
   child
-  $ rbd list data --format json | python -mjson.tool
+  $ rbd list data --format json | python2 -mjson.tool
   [
       "child"
   ]
@@ -486,7 +486,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   NAME       SIZE PARENT       FMT PROT LOCK 
   child      512M                2           
   child@snap 512M rbd/bar@snap   2           
-  $ rbd list data -l --format json | python -mjson.tool
+  $ rbd list data -l --format json | python2 -mjson.tool
   [
       {
           "format": 2, 
@@ -527,7 +527,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
     </snapshot>
   </images>
   $ rbd lock list foo
-  $ rbd lock list foo --format json | python -mjson.tool
+  $ rbd lock list foo --format json | python2 -mjson.tool
   {}
   $ rbd lock list foo --format xml | xml_pp 2>&1 | grep -v '^new version at /usr/bin/xml_pp'
   <locks></locks>
@@ -535,7 +535,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   There is 1 exclusive lock on this image.
   Locker*ID*Address* (glob)
   client.* id * (glob)
-  $ rbd lock list quux --format json | python -mjson.tool
+  $ rbd lock list quux --format json | python2 -mjson.tool
   {
       "id": {
           "address": "*",  (glob)
@@ -556,7 +556,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   client.*id[123].* (re)
   client.*id[123].* (re)
   client.*id[123].* (re)
-  $ rbd lock list baz --format json | python -mjson.tool
+  $ rbd lock list baz --format json | python2 -mjson.tool
   {
       "id1": {
           "address": "*",  (glob)
@@ -589,7 +589,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   $ rbd snap list foo
   SNAPID NAME    SIZE 
       *snap*1024*MB* (glob)
-  $ rbd snap list foo --format json | python -mjson.tool
+  $ rbd snap list foo --format json | python2 -mjson.tool
   [
       {
           "id": *,  (glob)
@@ -609,7 +609,7 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
   SNAPID NAME     SIZE 
       *snap*512*MB* (glob)
       *snap2*1024*MB* (glob)
-  $ rbd snap list bar --format json | python -mjson.tool
+  $ rbd snap list bar --format json | python2 -mjson.tool
   [
       {
           "id": *,  (glob)
@@ -636,14 +636,14 @@ whenever it is run. grep -v to ignore it, but still work on other distros.
     </snapshot>
   </snapshots>
   $ rbd snap list baz
-  $ rbd snap list baz --format json | python -mjson.tool
+  $ rbd snap list baz --format json | python2 -mjson.tool
   []
   $ rbd snap list baz --format xml | xml_pp 2>&1 | grep -v '^new version at /usr/bin/xml_pp'
   <snapshots></snapshots>
   $ rbd snap list data/child
   SNAPID NAME   SIZE 
       *snap*512*MB* (glob)
-  $ rbd snap list data/child --format json | python -mjson.tool
+  $ rbd snap list data/child --format json | python2 -mjson.tool
   [
       {
           "id": *,  (glob)

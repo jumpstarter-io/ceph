@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python2
 #
 # Copyright 2009 Google Inc. All Rights Reserved.
 #
@@ -158,7 +158,7 @@ class GetTestsToRunTest(unittest.TestCase):
     """Normalizes path data returned from GetTestsToRun for comparison."""
 
     def NormalizePythonTestPair(pair):
-      """Normalizes path data in the (directory, python_script) pair."""
+      """Normalizes path data in the (directory, python2_script) pair."""
 
       return (os.path.normpath(pair[0]), os.path.normpath(pair[1]))
 
@@ -174,7 +174,7 @@ class GetTestsToRunTest(unittest.TestCase):
         executable = re.sub(r'\.exe$', '', executable)
       return (directory, executable)
 
-    python_tests = sets.Set(map(NormalizePythonTestPair, results[0]))
+    python2_tests = sets.Set(map(NormalizePythonTestPair, results[0]))
     binary_tests = sets.Set(map(NormalizeBinaryTestPair, results[1]))
     return (python_tests, binary_tests)
 
