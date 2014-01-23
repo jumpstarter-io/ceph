@@ -190,7 +190,7 @@ def maybe_mkdir(*a, **kw):
         LOG.debug('Removing old symlink at %s', *a)
         os.unlink(*a)
     try:
-        os.mkdir(*a, **kw)
+        os.makedirs(*a, **kw)
     except OSError, e:
         if e.errno == errno.EEXIST:
             pass
@@ -1438,6 +1438,23 @@ def start_daemon(
                     'osd.{osd_id}'.format(osd_id=osd_id),
                     ],
                 )
+        elif os.path.exists(os.path.join(path, 'systemd')):
+            if os.path.exists('/usr/bin/systemctl'):
+                sctl = '/usr/bin/systemctl'
+                subprocess.check_call(
+                    args=[
+                        sctl,
+                        'enable',
+                        'ceph-osd@{osd_id}'.format(osd_id=osd_id),
+                    ],
+                )
+                subprocess.check_call(
+                    args=[
+                        sctl,
+                        'start',
+                        'ceph-osd@{osd_id}'.format(osd_id=osd_id),
+                    ],
+                )
         else:
             raise Error('{cluster} osd.{osd_id} is not tagged with an init system'.format(
                     cluster=cluster,
@@ -1573,6 +1590,8 @@ def activate_dir(
     canonical = '/var/lib/ceph/osd/{cluster}-{osd_id}'.format(
         cluster=cluster,
         osd_id=osd_id)
+        
+    maybe_mkdir('/var/lib/ceph/osd')
     if path != canonical:
         # symlink it from the proper location
         create = True
