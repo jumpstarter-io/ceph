@@ -217,7 +217,7 @@ def maybe_mkdir(*a, **kw):
         LOG.debug('Removing old symlink at %s', *a)
         os.unlink(*a)
     try:
-        os.mkdir(*a, **kw)
+        os.makedirs(*a, **kw)
     except OSError, e:
         if e.errno == errno.EEXIST:
             pass
@@ -1613,6 +1613,23 @@ def start_daemon(
                     'ceph',
                     'start',
                     'osd.{osd_id}'.format(osd_id=osd_id),
+                    ],
+                )
+        elif os.path.exists(os.path.join(path, 'systemd')):
+            if os.path.exists('/usr/bin/systemctl'):
+                sctl = '/usr/bin/systemctl'
+                subprocess.check_call(
+                    args=[
+                        sctl,
+                        'enable',
+                        'ceph-osd@{osd_id}'.format(osd_id=osd_id),
+                    ],
+                )
+                subprocess.check_call(
+                    args=[
+                        sctl,
+                        'start',
+                        'ceph-osd@{osd_id}'.format(osd_id=osd_id),
                     ],
                 )
         else:
